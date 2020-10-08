@@ -18,6 +18,7 @@ platformio run --target upload
 
 ### Windows
 
+* Download the latest binary firmware file from `release` directory: [wrc-morse-key-adapter-20201008.hex](release/wrc-morse-key-adapter-20201008.hex).
 * Install Arduino IDE for Windows to get the latest version of `avrdude.exe` that
   is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
@@ -30,10 +31,10 @@ platformio run --target upload
 ```bash
 avrdude -p atmega32u4 -c arduino -P COM3 -b 1200
   ```
-* Execute the following command to flash the new firmware in file `firmware.hex`.
+* Execute the following command to flash the new firmware in file `wrc-morse-key-adapter-20201008.hex`.
   You will have only 8 seconds to do this until Arduino returns back to normal mode.
   Note that the COM port changes once again, usually to a port with
   a number one higher than previously (COM4 in this example).
 ```
-avrdude -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U flash:w:firmware.hex
+avrdude -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U flash:w:wrc-morse-key-adapter-20201008.hex
 ```
