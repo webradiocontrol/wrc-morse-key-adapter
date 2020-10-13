@@ -27,7 +27,7 @@ do not provide USB client device support. Support for other microcontrollers wit
 
 ### Full schematic
 
-![Web Radio Control morse key USB adapter schematic](hardware/Schematic_Web Radio Control morse key USB adapter_Morse_key_USB_adapter_20200416114730.png?raw=true)
+![Web Radio Control morse key USB adapter schematic](hardware/wrc-morse-key-adapter-schematic-20200416-01.png?raw=true)
 
 ATmega32U4 input pin descriptions:
 
