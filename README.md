@@ -20,8 +20,9 @@ and the volume of the sidetone are also adjustable via potentiometers.
 
 ## Hardware requirements
 
-The default PlatformIO config and the source code settings assume use of [Arduino Micro](https://store.arduino.cc/arduino-micro)
-or a compatible board that has an [ATmega32U4](https://www.microchip.com/wwwproducts/en/ATMEGA32U4) microcontroller.
+The default PlatformIO config and the source code settings assume use of [Arduino Micro](https://store.arduino.cc/arduino-micro),
+[Arduino Pro Micro](https://deskthority.net/wiki/Arduino_Pro_Micro) or a compatible board that has an
+[ATmega32U4](https://www.microchip.com/wwwproducts/en/ATMEGA32U4) microcontroller.
 This is the only microcontroller supported currently, because many Arduino models use microcontrollers that
 do not provide USB client device support. Support for other microcontrollers with USB client functionality may be added later.
 
@@ -42,7 +43,7 @@ ATmega32U4 input pin descriptions:
 
 ATmega32U4 output pin descriptions:
 
-* D13 = CW sidetone output (PWM square wave) - optional
+* D6 (or D13) = CW sidetone output (PWM square wave) - optional
 
 The schematic includes a simple low-pass filter for the PWM square wave
 CW sidetone output, which is then passed to an LM386 audio amplifier

@@ -29,6 +29,18 @@
 #include <Arduino.h>
 #include <avr/pgmspace.h>
 
+// The code uses pin 6 for PWM output by default, which is present on both Arduino Micro and Arduino Pro Micro.
+// It is also possible to use pin 13 in Arduino Micro by setting USE_PIN_13 to true.
+#define USE_PIN_13 false
+
+#if USE_PIN_13 == true
+#define REG_OCR OCR4A
+#define PIN_PWM 13
+#else
+#define REG_OCR OCR4D
+#define PIN_PWM 6
+#endif
+
 #ifndef cbi
 #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
 #endif
@@ -87,10 +99,17 @@ void pwmInitTimer()
 
     // Timer PWM Mode set to Phase Correct PWM
     // Clear Compare Match
-    cbi(TCCR4A, COM4A0);
-    sbi(TCCR4A, COM4A1);
+    if (USE_PIN_13) {
+        cbi(TCCR4A, COM4A0);
+        sbi(TCCR4A, COM4A1);
 
-    sbi(TCCR4A, PWM4A);
+        sbi(TCCR4A, PWM4A);
+    } else {
+        cbi(TCCR4C, COM4D0);
+        sbi(TCCR4C, COM4D1);
+
+        sbi(TCCR4C, PWM4D);
+    }
 
     // Mode 1  / Phase Correct PWM
     sbi(TCCR4D, WGM40);
@@ -105,7 +124,7 @@ void pwmSetFrequency(double frequency)
 void pwmInit(double frequency)
 {
     // PWM frequency output
-    pinMode(13, OUTPUT);
+    pinMode(PIN_PWM, OUTPUT);
 
     // Pin 7 can be used to debug timing
     // pinMode(7, OUTPUT);
@@ -151,9 +170,9 @@ ISR(TIMER4_OVF_vect)
 
     if (pwmEnabled) {
         // Read value from sine table and send to PWM DAC
-        OCR4A = pgm_read_byte_near(sine256 + pwmSineIndex);
+        REG_OCR = pgm_read_byte_near(sine256 + pwmSineIndex);
     } else {
-        OCR4A = 0;
+        REG_OCR = 0;
     }
 
     pwmInterruptCounter++;
