@@ -20,17 +20,24 @@ and the volume of the sidetone are also adjustable via potentiometers.
 
 ## Hardware requirements
 
-The default PlatformIO config and the source code settings assume use of [Arduino Micro](https://store.arduino.cc/arduino-micro),
-[Arduino Pro Micro](https://deskthority.net/wiki/Arduino_Pro_Micro) or a compatible board that has an
+An Arduino Micro, Micro Pro or a compatible board that has an
 [ATmega32U4](https://www.microchip.com/wwwproducts/en/ATMEGA32U4) microcontroller.
+
+The following boards have been tested:
+
+* [Arduino Micro](https://store.arduino.cc/arduino-micro)
+* [Arduino Pro Micro](https://deskthority.net/wiki/Arduino_Pro_Micro) running at 5V/16MHz (*NOT* the 3.3V/8MHz)
+
+The default PlatformIO config and the source code settings assume use of .
 This is the only microcontroller supported currently, because many Arduino models use microcontrollers that
-do not provide USB client device support. Support for other microcontrollers with USB client functionality may be added later.
+do not provide USB client device support. Support for other microcontrollers with USB client functionality
+may be added later.
 
 ### Full schematic
 
 ![Web Radio Control morse key USB adapter schematic](hardware/wrc-morse-key-adapter-schematic-20200416-01.png?raw=true)
 
-ATmega32U4 input pin descriptions:
+Arduino Micro input pin descriptions:
 
 * D0 (RX) = PTT (active low)
 * D2 = Straight key or dual-lever paddle dit (tip, active low)
@@ -41,7 +48,7 @@ ATmega32U4 input pin descriptions:
 * A0 = Keyer speed control
 * A1 = Keyer sidetone pitch control
 
-ATmega32U4 output pin descriptions:
+Arduino Micro output pin descriptions:
 
 * D6 (or D13) = CW sidetone output (PWM square wave) - optional
 
@@ -56,24 +63,56 @@ When using this adapter in straight key mode, an external keyer, such as the
 to this adapter to provide additional functionality.
 
 The CW key output of an external keyer should be connected to pin D2
-of the ATmega32U4 microcontroller. The incoming signal must be pull D2 pin to GND
+of the Arduino board. The incoming signal must be pull D2 pin to GND
 when active. Optionally, PTT control from an external keyer can be connected
 to pin D0 (active low). 
 
 ## Building the firmware
 
-Execute the following command to build the firmware:
+Execute the following command to build the firmware.
+The command depends on the microcontroller board type, which should be either Arduino Micro or Arduino Pro Micro.
+
+### Arduino Micro
+
+Building the firmware for Arduino Micro:
 
 ```bash
-platformio run
+platformio run --environment micro
 ```
+
+The built firmware can be found in directory `.pio/build/micro` in files `firmware.hex` in HEX format
+and in `firmware.elf` in ELF format.
+
+### Arduino Pro Micro
+
+Building the firmware for Arduino Pro Micro:
+
+```bash
+platformio run --environment promicro
+```
+
+The built firmware can be found in directory `.pio/build/promicro` in files `firmware.hex` in HEX format
+and in `firmware.elf` in ELF format.
 
 ## Flashing the firmware
 
-Execute the following command to flash the firmware to an Arduino Micro connected to a USB port:
+Execute the following command to flash the firmware to an Arduino connected to a USB port. The command depends
+on the microcontroller board type, which should be either Arduino Micro or Arduino Pro Micro.
+
+### Arduino Micro
+
+Flashing Arduino Micro:
 
 ```bash
-platformio run --target upload
+platformio run --environment micro --target upload
+```
+
+### Arduino Pro Micro
+
+Flashing Arduino Pro Micro:
+
+```bash
+platformio run --environment promicro --target upload
 ```
 
 ## Flashing binary only
@@ -91,10 +130,13 @@ platformio run --target upload
 * Find the location of `avrdude.exe`, located in directory `hardware/tools/avr/bin` under the directory where Arduino IDE is installed
 * Open `Command Prompt` and change the current directory to where `avrdude.exe` is located
 * Execute the following command to reset Arduino and to switch it to mode for flashing.
+  *NOTE:* The command will fail, printing out error messages, and you will need to forcibly stop it by pressing `CTRL+C`.
+  The only purpose of this command is to open the serial port to make the Arduino chip ready for flashing. 
   Remember to adjust the COM port in the command (COM3 in the example).
 ```bash
 avrdude -C ..\etc\avrdude.conf -p atmega32u4 -c arduino -P COM3 -b 1200
   ```
+* Press `Ctrl+C` to interrupt the command now that the Arduino is ready for flashing.
 * Execute the following command to flash the new firmware in file `wrc-morse-key-adapter-20201008.hex`.
   You will have only 8 seconds to do this until Arduino returns back to normal mode.
   Note that the COM port changes once again, usually to a port with
@@ -113,11 +155,13 @@ avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U fl
   * List the devices using command: `ls /dev/ttyACM*`
 * Open a terminal and change the current directory to the directory where the Arduino IDE is installed
 * Execute the following command to reset Arduino and to switch it to mode for flashing.
+  *NOTE:* The command will fail, printing out error messages, and you will need to forcibly stop it by pressing `CTRL+C`.
+  The only purpose of this command is to open the serial port to make the Arduino chip ready for flashing. 
   Remember to adjust the USB device file in the command (`/dev/ttyACM0` in the example).
 ```bash
 ./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -p atmega32u4 -c arduino -P /dev/ttyACM0 -b 1200
   ```
-* Press `Ctrl+C` to interrupt the command now that the Arduino is ready for flashing
+* Press `Ctrl+C` to interrupt the command now that the Arduino is ready for flashing.
 * Execute the following command to flash the new firmware in file `wrc-morse-key-adapter-20201008.hex`.
   You will have only 8 seconds to do this until Arduino returns back to normal mode.
   Note that the USB device file changes once again, usually to a port with
