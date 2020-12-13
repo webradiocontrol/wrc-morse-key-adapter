@@ -119,7 +119,9 @@ platformio run --environment promicro --target upload
 
 ### Windows
 
-* Download the latest binary firmware file from `release` directory: [wrc-morse-key-adapter-20201008.hex](release/wrc-morse-key-adapter-20201008.hex).
+* Download the latest binary firmware file from `release` directory
+  * For Arduino Micro: [wrc-morse-key-adapter-micro-20201213.hex](release/wrc-morse-key-adapter-micro-20201213.hex).
+  * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201213.hex](release/wrc-morse-key-adapter-promicro-20201213.hex).
 * Install [Arduino IDE for Windows](https://www.arduino.cc/en/Main/software) to get the latest version of `avrdude.exe` tool,
   which is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
