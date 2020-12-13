@@ -139,17 +139,19 @@ platformio run --environment promicro --target upload
 avrdude -C ..\etc\avrdude.conf -p atmega32u4 -c arduino -P COM3 -b 1200
   ```
 * Press `Ctrl+C` to interrupt the command now that the Arduino is ready for flashing.
-* Execute the following command to flash the new firmware in file `wrc-morse-key-adapter-20201008.hex`.
+* Execute the following command to flash the new firmware in the downloaded `.hex` file.
   You will have only 8 seconds to do this until Arduino returns back to normal mode.
   Note that the COM port changes once again, usually to a port with
   a number one higher than previously (COM4 in this example).
 ```
-avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U flash:w:wrc-morse-key-adapter-20201008.hex
+avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201213.hex
 ```
 
 ### Linux
 
-* Download the latest binary firmware file from `release` directory: [wrc-morse-key-adapter-20201008.hex](release/wrc-morse-key-adapter-20201008.hex).
+* Download the latest binary firmware file from `release` directory
+  * For Arduino Micro: [wrc-morse-key-adapter-micro-20201213.hex](release/wrc-morse-key-adapter-micro-20201213.hex).
+  * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201213.hex](release/wrc-morse-key-adapter-promicro-20201213.hex).
 * Install [Arduino IDE for Linux](https://www.arduino.cc/en/Main/software) to get the latest version of `avrdude` tool,
   which is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
@@ -164,10 +166,10 @@ avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U fl
 ./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -p atmega32u4 -c arduino -P /dev/ttyACM0 -b 1200
   ```
 * Press `Ctrl+C` to interrupt the command now that the Arduino is ready for flashing.
-* Execute the following command to flash the new firmware in file `wrc-morse-key-adapter-20201008.hex`.
+* Execute the following command to flash the new firmware in the downloaded `.hex` file.
   You will have only 8 seconds to do this until Arduino returns back to normal mode.
   Note that the USB device file changes once again, usually to a port with
   a number one higher than previously (`/dev/ttyACM1` in this example).
 ```
-./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -c avr109 -p atmega32u4 -P /dev/ttyACM1 -b 57600 -D -U flash:w:wrc-morse-key-adapter-20201008.hex
+./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -c avr109 -p atmega32u4 -P /dev/ttyACM1 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201213.hex
 ```
