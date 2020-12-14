@@ -120,8 +120,8 @@ platformio run --environment promicro --target upload
 ### Windows
 
 * Download the latest binary firmware file from `release` directory
-  * For Arduino Micro: [wrc-morse-key-adapter-micro-20201213.hex](release/wrc-morse-key-adapter-micro-20201213.hex).
-  * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201213.hex](release/wrc-morse-key-adapter-promicro-20201213.hex).
+  * For Arduino Micro: [wrc-morse-key-adapter-micro-20201214.hex](release/wrc-morse-key-adapter-micro-20201214.hex).
+  * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201214.hex](release/wrc-morse-key-adapter-promicro-20201214.hex).
 * Install [Arduino IDE for Windows](https://www.arduino.cc/en/Main/software) to get the latest version of `avrdude.exe` tool,
   which is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
@@ -144,14 +144,14 @@ avrdude -C ..\etc\avrdude.conf -p atmega32u4 -c arduino -P COM3 -b 1200
   Note that the COM port changes once again, usually to a port with
   a number one higher than previously (COM4 in this example).
 ```
-avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201213.hex
+avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201214.hex
 ```
 
 ### Linux
 
 * Download the latest binary firmware file from `release` directory
-  * For Arduino Micro: [wrc-morse-key-adapter-micro-20201213.hex](release/wrc-morse-key-adapter-micro-20201213.hex).
-  * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201213.hex](release/wrc-morse-key-adapter-promicro-20201213.hex).
+  * For Arduino Micro: [wrc-morse-key-adapter-micro-20201214.hex](release/wrc-morse-key-adapter-micro-20201214.hex).
+  * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201214.hex](release/wrc-morse-key-adapter-promicro-20201214.hex).
 * Install [Arduino IDE for Linux](https://www.arduino.cc/en/Main/software) to get the latest version of `avrdude` tool,
   which is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
@@ -171,5 +171,5 @@ avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U fl
   Note that the USB device file changes once again, usually to a port with
   a number one higher than previously (`/dev/ttyACM1` in this example).
 ```
-./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -c avr109 -p atmega32u4 -P /dev/ttyACM1 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201213.hex
+./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -c avr109 -p atmega32u4 -P /dev/ttyACM1 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201214.hex
 ```
