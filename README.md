@@ -42,9 +42,9 @@ Arduino Micro input pin descriptions:
 * D0 (RX) = PTT (active low)
 * D2 = Straight key or dual-lever paddle dit (tip, active low)
 * D3 = Dual-lever paddle dah (ring, active low)
-* D9 = Straight/automatic (low = straight)
-* D10 = Iambic mode (active high)
-* D11 = Inverted dual-lever paddle functions mode (active high)
+* D8 = Straight/automatic (low = straight)
+* D9 = Iambic mode (active high)
+* D10 = Inverted dual-lever paddle functions mode (active high)
 * A0 = Keyer speed control
 * A1 = Keyer sidetone pitch control
 
