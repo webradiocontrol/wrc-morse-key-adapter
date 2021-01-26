@@ -9,6 +9,9 @@ The morse key adapter supports straight keys and provides a automatic keyer for 
 The keying speed is adjustable via a potentiometer. The adapter generates CW sidetone and the pitch
 and the volume of the sidetone are also adjustable via potentiometers.
 
+See [Web Radio Control documentation](https://doc.webradiocontrol.tech/) for more information about Web Radio Control
+amateur radio station remote control software.
+
 ## Features
 
 * Straight key support
@@ -35,7 +38,7 @@ may be added later.
 
 ### Full schematic
 
-![Web Radio Control morse key USB adapter schematic](hardware/wrc-morse-key-adapter-schematic-20200416-01.png?raw=true)
+![Web Radio Control morse key USB adapter schematic](hardware/wrc-morse-key-adapter-schematic-v1_1.png?raw=true)
 
 Arduino Micro input pin descriptions:
 
@@ -67,55 +70,10 @@ of the Arduino board. The incoming signal must be pull D2 pin to GND
 when active. Optionally, PTT control from an external keyer can be connected
 to pin D0 (active low). 
 
-## Building the firmware
+## Flashing Arduino firmware
 
-Execute the following command to build the firmware.
-The command depends on the microcontroller board type, which should be either Arduino Micro or Arduino Pro Micro.
-
-### Arduino Micro
-
-Building the firmware for Arduino Micro:
-
-```bash
-platformio run --environment micro
-```
-
-The built firmware can be found in directory `.pio/build/micro` in files `firmware.hex` in HEX format
-and in `firmware.elf` in ELF format.
-
-### Arduino Pro Micro
-
-Building the firmware for Arduino Pro Micro:
-
-```bash
-platformio run --environment promicro
-```
-
-The built firmware can be found in directory `.pio/build/promicro` in files `firmware.hex` in HEX format
-and in `firmware.elf` in ELF format.
-
-## Flashing the firmware
-
-Execute the following command to flash the firmware to an Arduino connected to a USB port. The command depends
-on the microcontroller board type, which should be either Arduino Micro or Arduino Pro Micro.
-
-### Arduino Micro
-
-Flashing Arduino Micro:
-
-```bash
-platformio run --environment micro --target upload
-```
-
-### Arduino Pro Micro
-
-Flashing Arduino Pro Micro:
-
-```bash
-platformio run --environment promicro --target upload
-```
-
-## Flashing binary only
+Follow the operating system-specific instructions below to flash the morse key adapter firmware
+on an Arduino Micro or Arduino Pro Micro.
 
 ### Windows
 
@@ -172,4 +130,52 @@ avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U fl
   a number one higher than previously (`/dev/ttyACM1` in this example).
 ```
 ./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -c avr109 -p atmega32u4 -P /dev/ttyACM1 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201214.hex
+```
+
+## Developer documentation
+
+Execute the following command to build the firmware binary from the source code.
+The command depends on the microcontroller board type, which should be either Arduino Micro or Arduino Pro Micro.
+
+### Arduino Micro
+
+Building the firmware for Arduino Micro:
+
+```bash
+platformio run --environment micro
+```
+
+The built firmware can be found in directory `.pio/build/micro` in files `firmware.hex` in HEX format
+and in `firmware.elf` in ELF format.
+
+### Arduino Pro Micro
+
+Building the firmware for Arduino Pro Micro:
+
+```bash
+platformio run --environment promicro
+```
+
+The built firmware can be found in directory `.pio/build/promicro` in files `firmware.hex` in HEX format
+and in `firmware.elf` in ELF format.
+
+## Flashing the firmware
+
+Execute the following command to flash the firmware to an Arduino connected to a USB port. The command depends
+on the microcontroller board type, which should be either Arduino Micro or Arduino Pro Micro.
+
+### Arduino Micro
+
+Flashing Arduino Micro:
+
+```bash
+platformio run --environment micro --target upload
+```
+
+### Arduino Pro Micro
+
+Flashing Arduino Pro Micro:
+
+```bash
+platformio run --environment promicro --target upload
 ```

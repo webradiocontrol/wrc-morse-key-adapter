@@ -1,6 +1,6 @@
 /**
  * Arduino USB Morse Key adapter for Web Radio Control amateur radio remote control software
- * Copyright (C) 2020 Mikael Nousiainen OH3BHX <mikael.nousiainen@iki.fi>
+ * Copyright (C) 2020-2021 Mikael Nousiainen OH3BHX <mikael@webradiocontrol.tech>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
