@@ -31,10 +31,10 @@ The following boards have been tested:
 * [Arduino Micro](https://store.arduino.cc/arduino-micro)
 * [Arduino Pro Micro](https://deskthority.net/wiki/Arduino_Pro_Micro) running at 5V/16MHz (*NOT* the 3.3V/8MHz)
 
-The default PlatformIO config and the source code settings assume use of .
-This is the only microcontroller supported currently, because many Arduino models use microcontrollers that
-do not provide USB client device support. Support for other microcontrollers with USB client functionality
-may be added later.
+The Arduino firmware settings assume use of an
+[ATmega32U4](https://www.microchip.com/wwwproducts/en/ATMEGA32U4) microcontroller.
+This is the only microcontroller supported currently, because it can act as a USB client device.
+Support for other microcontrollers with USB client functionality may be added later.
 
 ### Full schematic
 
