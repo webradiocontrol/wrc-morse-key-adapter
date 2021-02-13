@@ -80,7 +80,7 @@ on an Arduino Micro or Arduino Pro Micro.
 * Download the latest binary firmware file from `release` directory
   * For Arduino Micro: [wrc-morse-key-adapter-micro-20201214.zip](release/wrc-morse-key-adapter-micro-20201214.zip?raw=true).
   * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201214.zip](release/wrc-morse-key-adapter-promicro-20201214.zip?raw=true).
-* *Extract the HEX firmware binary file inside the the ZIP file*
+* **Extract the HEX firmware binary file inside the the ZIP file**+
 * Install [Arduino IDE for Windows](https://www.arduino.cc/en/Main/software) to get the latest version of `avrdude.exe` tool,
   which is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
@@ -111,7 +111,7 @@ avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U fl
 * Download the latest binary firmware file from `release` directory
   * For Arduino Micro: [wrc-morse-key-adapter-micro-20201214.zip](release/wrc-morse-key-adapter-micro-20201214.zip?raw=true).
   * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201214.zip](release/wrc-morse-key-adapter-promicro-20201214.zip?raw=true).
-* *Extract the HEX firmware binary file inside the the ZIP file*
+* **Extract the HEX firmware binary file inside the the ZIP file**+
 * Install [Arduino IDE for Linux](https://www.arduino.cc/en/Main/software) to get the latest version of `avrdude` tool,
   which is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
