@@ -136,6 +136,10 @@ avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U fl
 
 ## Developer documentation
 
+Download and install [PlatformIO](https://platformio.org/) embedded development platform. Building the
+firmware requires at least the [PlatformIO Core (CLI)](https://docs.platformio.org/en/latest/core/index.html)
+command-line tools to be installed.
+
 Execute the following command to build the firmware binary from the source code.
 The command depends on the microcontroller board type, which should be either Arduino Micro or Arduino Pro Micro.
 
