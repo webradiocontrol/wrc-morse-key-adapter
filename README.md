@@ -1,6 +1,6 @@
 # Web Radio Control morse key and PTT adapter
 
-This is a USB adapter for a physical morse key and a PTT switch to be used with Web Radio Control
+This is a USB adapter for a physical morse key and a PTT switch to be used with [Web Radio Control](https://doc.webradiocontrol.tech/)
 amateur radio station remote control software. The adapter connects to a computer or a mobile device via a USB port
 and represents itself as a standard keyboard. The adapter will use Web Radio Control user interface keyboard shortcuts
 (in a web browser) to control PTT and to perform morse keying.
