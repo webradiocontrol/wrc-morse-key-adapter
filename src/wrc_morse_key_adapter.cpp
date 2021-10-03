@@ -31,8 +31,8 @@
 #define PIN_KEY_IAMBIC 9
 #define PIN_KEY_INVERTED 10
 
-#define PIN_ANALOG_KEYER_SPEED A0
-#define PIN_ANALOG_KEYER_PITCH A1
+#define PIN_ANALOG_KEYER_PITCH A0
+#define PIN_ANALOG_KEYER_SPEED A1
 
 #define PIN_STATE_KEY_ON LOW
 #define PIN_STATE_PTT_ON LOW
@@ -475,14 +475,14 @@ void setup()
     Serial.begin(115200);
     Serial.println("USB Morse Key adapter initializing");
 
+    // Morse keyer
+
     pinMode(PIN_KEY_RING, INPUT_PULLUP);
     pinMode(PIN_KEY_TIP, INPUT_PULLUP);
 
     pinMode(PIN_KEY_AUTOMATIC_MODE, INPUT_PULLUP);
     pinMode(PIN_KEY_IAMBIC, INPUT_PULLUP);
     pinMode(PIN_KEY_INVERTED, INPUT_PULLUP);
-
-    pinMode(PIN_PTT, INPUT_PULLUP);
 
     pinMode(PIN_ANALOG_KEYER_PITCH, INPUT);
     pinMode(PIN_ANALOG_KEYER_SPEED, INPUT);
@@ -493,7 +493,13 @@ void setup()
     attachInterrupt(digitalPinToInterrupt(PIN_KEY_RING), pinChangeHandleRing, CHANGE);
     attachInterrupt(digitalPinToInterrupt(PIN_KEY_TIP), pinChangeHandleTip, CHANGE);
 
+    // PTT switch
+
+    pinMode(PIN_PTT, INPUT_PULLUP);
+
     attachInterrupt(digitalPinToInterrupt(PIN_PTT), pinChangeHandlePtt, CHANGE);
+
+    // Keyboard setup
 
     Keyboard.begin();
 }

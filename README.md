@@ -1,5 +1,8 @@
 # Web Radio Control morse key and PTT adapter
 
+**NOTE:** This documentation and code is for the latest version 2 (v2) of the USB adapter.
+See the [v1 branch](webradiocontrol/wrc-morse-key-adapter/tree/v1) if you are looking for the old version 1 documentation. 
+
 This is a USB adapter for a physical morse key and a PTT switch to be used with [Web Radio Control](https://doc.webradiocontrol.tech/)
 amateur radio station remote control software. The adapter connects to a computer or a mobile device via a USB port
 and represents itself as a standard keyboard. The adapter will use Web Radio Control user interface keyboard shortcuts
@@ -14,12 +17,31 @@ amateur radio station remote control software.
 
 ## Features
 
-* Straight key support
 * Integrated CW keyer for dual-lever paddle with adjustable speed
 * CW sidetone generation (via audio amplifier) with adjustable pitch and volume
+* Straight key support
 * Option to use Iambic mode with a dual-lever paddle
 * Option to invert dual-lever paddle functions
 * Support for an external PTT switch
+
+## How do I get one?
+
+This is a DIY kit, so you will have to obtain all components and build
+the device yourself.
+
+However, there are free printed circuit board (PCB) designs available.
+Use the links below to download Gerber files for either the Arduino Micro
+or the Arduino Pro Micro PCB version.
+
+### Printed Circuit Boards available for order (Europe only)
+
+There is a limited number of PCBs available for order from Mikael OH3BHX.
+**Note that the PCBs are available in Europe only.**
+
+The circuit board price is 10 euros + postage. Payments accepted via PayPal only.
+
+Please send email to `mikael (at) webradiocontrol.tech` for more instructions
+on how to order PCBs.
 
 ## Hardware requirements
 
@@ -38,7 +60,15 @@ Support for other microcontrollers with USB client functionality may be added la
 
 ### Full schematic
 
-![Web Radio Control morse key USB adapter schematic](hardware/wrc-morse-key-adapter-schematic-v1_1.png?raw=true)
+#### For Arduino Micro
+
+![Web Radio Control morse key USB adapter schematic (Arduino Micro)](hardware/wrc-morse-key-adapter-schematic-v2-arduino-micro.png?raw=true)
+
+#### For Arduino Pro Micro
+
+![Web Radio Control morse key USB adapter schematic (Arduino Micro)](hardware/wrc-morse-key-adapter-schematic-v2-arduino-pro-micro.png?raw=true)
+
+#### Pin descriptions
 
 Arduino Micro input pin descriptions:
 
@@ -48,16 +78,78 @@ Arduino Micro input pin descriptions:
 * D8 = Straight/automatic (low = straight)
 * D9 = Iambic mode (active high)
 * D10 = Inverted dual-lever paddle functions mode (active high)
-* A0 = Keyer speed control
-* A1 = Keyer sidetone pitch control
+* A0 = Keyer sidetone pitch control
+* A1 = Keyer speed control
 
 Arduino Micro output pin descriptions:
 
-* D6 (or D13) = CW sidetone output (PWM square wave) - optional
+* D6 = CW sidetone output (PWM square wave) - optional
 
 The schematic includes a simple low-pass filter for the PWM square wave
-CW sidetone output, which is then passed to an LM386 audio amplifier
+CW sidetone output, which is then passed to a TDA7050 audio amplifier
 in order to amplify the sidetone for speaker output.
+
+### Printed Circuit Boards
+
+#### For Arduino Micro
+
+![Web Radio Control morse key USB adapter schematic (Arduino Micro)](hardware/wrc-morse-key-adapter-pcb-v2-arduino-micro.svg?raw=true)
+
+Download [Gerber files for Arduino Micro version](hardware/wrc-morse-key-adapter-pcb-v2-arduino-micro-gerber.zip?raw=true) of the PCB.
+
+#### For Arduino Pro Micro
+
+![Web Radio Control morse key USB adapter schematic (Arduino Micro)](hardware/wrc-morse-key-adapter-pcb-v2-arduino-pro-micro.svg?raw=true)
+
+Download [Gerber files for Arduino Pro Micro version](hardware/wrc-morse-key-adapter-pcb-v2-arduino-pro-micro-gerber.zip?raw=true) of the PCB.
+
+### Obtaining components
+
+All switches, potentiometers and jacks are designed to be mounted in the enclosure, so they should be connected
+electrically to the circuit board using jumper wires. The circuit board has connections for 2.54mm (100mil) pin headers
+where these external components can be connected.
+
+Component list:
+
+* SW1, SW2, SW3, SW4: Latching switch (that keeps its state)
+* J1: 3.5mm stereo jack for dual-lever paddle morse key.
+  * The tip and the shield are used in case of straight key.
+* J2, J3: 3.5mm stereo jacks for incoming audio and headphones.
+* R1, R2, R3: 10k ohm 1/4-watt through-hole resistor
+* R4, R5, R6: 15k ohm 1/4-watt through-hole resistor
+* R7, R8, R9: 10k ohm potentiometer
+* R10, R11: 1k ohm 1/4-watt through-hole resistor
+* C1: 470µF electrolytic through-hole capacitor
+* C2: 100µF electrolytic through-hole capacitor
+* C3: 100nF ceramic through-hole capacitor
+* C4, C5, C6: 10nF ceramic through-hole capacitor
+* C7: 100nF ceramic through-hole capacitor
+* U1: An official Arduino Micro or an Arduino Pro Micro, depending on the PCB model
+* U2: TDA7050 audio amplifier with DIP8 packaging
+
+Enclosure:
+
+* https://shopware.donau-elektronik.de/artikel/gehaeuse/gehaeuseserie-kgb/3299/kgb11-euro-box-klein-95x135x45-schwarz
+* https://www.partco.fi/en/mechanics/housing/plastic-enclosures/198-kot-45x95x135-mus.html
+
+#### Arduino Pro Micro 5V/16MHz: (World-wide)
+
+* https://www.banggood.com/Geekcreit-Pro-Micro-5V-16M-Mini-Leonardo-Microcontroller-Development-Board-Geekcreit-for-Arduino-products-that-work-with-official-Arduino-boards-p-1077675.html
+
+#### Arduino Pro Micro 5V/16MHz: (Finland)
+
+* https://ihmevekotin.fi/arduino-alustat/674-arduino-pro-micro-atmega32u4-5v16mhz.html - 13,90€
+* https://www.elektroniikkaosat.com/c-45/p-425511661/Kehitysalusta-Pro-Micro.html - 16,95€
+* http://robomaa.fi/arduino/arduino-pro-sarja/pro-micro-5v-16mhz - 23,90€
+
+#### Arduino Micro: (Finland)
+
+* https://www.verkkokauppa.com/fi/product/54618/fgjfx/Arduino-Micro-kehitysalusta - 24,90€
+* https://www.triopak.fi/fi/tuote/ARDUINO-A000053 - 24,00€
+* https://www.kouluelektroniikka.fi/tuote/ohjelmoitava-elektroniikka-ja-tarvikkeet/arduino/arduino-alustat/4600053/arduino-micro-kehitysalusta - 24,90€
+* http://robomaa.fi/index.php?route=product/product&product_id=1648&search=arduino+micro - 25,00€ (out of stock)
+* http://www.starelec.fi/product_info.php?products_id=32593 - 29,65€
+* https://www.partco.fi/en/arduino/arduino-models/137-arduino-micro.html - 33,90€
 
 ## Use of external keyers
 
@@ -78,9 +170,9 @@ on an Arduino Micro or Arduino Pro Micro.
 ### Windows
 
 * Download the latest binary firmware file from `release` directory
-  * For Arduino Micro: [wrc-morse-key-adapter-micro-20201214.zip](release/wrc-morse-key-adapter-micro-20201214.zip?raw=true).
-  * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201214.zip](release/wrc-morse-key-adapter-promicro-20201214.zip?raw=true).
-* **Extract the HEX firmware binary file inside the the ZIP file**
+  * For Arduino Micro: [wrc-morse-key-adapter-v2-micro-20211004.zip](release/wrc-morse-key-adapter-v2-micro-20211004.zip?raw=true).
+  * For Arduino Pro Micro: [wrc-morse-key-adapter-v2-promicro-20211004.zip](release/wrc-morse-key-adapter-v2-promicro-20211004.zip?raw=true).
+* **Extract the HEX firmware binary file inside the ZIP file**
 * Install [Arduino IDE for Windows](https://www.arduino.cc/en/Main/software) to get the latest version of `avrdude.exe` tool,
   which is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
@@ -103,15 +195,15 @@ avrdude -C ..\etc\avrdude.conf -p atmega32u4 -c arduino -P COM3 -b 1200
   Note that the COM port changes once again, usually to a port with
   a number one higher than previously (COM4 in this example).
 ```
-avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201214.hex
+avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U flash:w:wrc-morse-key-adapter-v2-micro-20211004.hex
 ```
 
 ### Linux
 
 * Download the latest binary firmware file from `release` directory
-  * For Arduino Micro: [wrc-morse-key-adapter-micro-20201214.zip](release/wrc-morse-key-adapter-micro-20201214.zip?raw=true).
-  * For Arduino Pro Micro: [wrc-morse-key-adapter-promicro-20201214.zip](release/wrc-morse-key-adapter-promicro-20201214.zip?raw=true).
-* **Extract the HEX firmware binary file inside the the ZIP file**
+  * For Arduino Micro: [wrc-morse-key-adapter-v2-micro-20211004.zip](release/wrc-morse-key-adapter-v2-micro-20211004.zip?raw=true).
+  * For Arduino Pro Micro: [wrc-morse-key-adapter-v2-promicro-20211004.zip](release/wrc-morse-key-adapter-v2-promicro-20211004.zip?raw=true).
+* **Extract the HEX firmware binary file inside the ZIP file**
 * Install [Arduino IDE for Linux](https://www.arduino.cc/en/Main/software) to get the latest version of `avrdude` tool,
   which is a command-line application used to flash Arduino boards.
 * Connect the Arduino to a USB port
@@ -131,7 +223,7 @@ avrdude -C ..\etc\avrdude.conf -c avr109 -p atmega32u4 -P COM4 -b 57600 -D -U fl
   Note that the USB device file changes once again, usually to a port with
   a number one higher than previously (`/dev/ttyACM1` in this example).
 ```
-./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -c avr109 -p atmega32u4 -P /dev/ttyACM1 -b 57600 -D -U flash:w:wrc-morse-key-adapter-micro-20201214.hex
+./hardware/tools/avr/bin/avrdude -C ./hardware/tools/avr/etc/avrdude.conf -c avr109 -p atmega32u4 -P /dev/ttyACM1 -b 57600 -D -U flash:w:wrc-morse-key-adapter-v2-micro-20211004.hex
 ```
 
 ## Developer documentation
