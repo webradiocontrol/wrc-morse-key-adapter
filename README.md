@@ -1,7 +1,7 @@
 # Web Radio Control morse key and PTT adapter
 
 **NOTE:** This documentation and code is for the latest version 2 (v2) of the USB adapter.
-See the [v1 branch](webradiocontrol/wrc-morse-key-adapter/tree/v1) if you are looking for the old version 1 documentation. 
+See the [v1 branch](/webradiocontrol/wrc-morse-key-adapter/tree/v1) if you are looking for the old version 1 documentation. 
 
 This is a USB adapter for a physical morse key and a PTT switch to be used with [Web Radio Control](https://doc.webradiocontrol.tech/)
 amateur radio station remote control software. The adapter connects to a computer or a mobile device via a USB port
