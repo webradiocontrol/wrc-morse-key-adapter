@@ -1,7 +1,7 @@
 # Web Radio Control morse key and PTT adapter
 
 **NOTE:** This documentation and code is for the latest version 2 (v2) of the USB adapter.
-See the [v1 branch](/webradiocontrol/wrc-morse-key-adapter/tree/v1) if you are looking for the old version 1 documentation. 
+See the [v1 branch](../../tree/v1) if you are looking for the old version 1 documentation. 
 
 This is a USB adapter for a physical morse key and a PTT switch to be used with [Web Radio Control](https://doc.webradiocontrol.tech/)
 amateur radio station remote control software. The adapter connects to a computer or a mobile device via a USB port
@@ -103,11 +103,15 @@ Download [Gerber files for Arduino Micro version](hardware/wrc-morse-key-adapter
 
 Download [Gerber files for Arduino Pro Micro version](hardware/wrc-morse-key-adapter-pcb-v2-arduino-pro-micro-gerber.zip?raw=true) of the PCB.
 
-### Obtaining components
+### Component list
 
 All switches, potentiometers and jacks are designed to be mounted in the enclosure, so they should be connected
 electrically to the circuit board using jumper wires. The circuit board has connections for 2.54mm (100mil) pin headers
 where these external components can be connected.
+
+It is recommended to mount the Arduino using 2.54mm (100mil) pin headers and sockets and
+to use a DIL8 socket for the TDA7050 amplifier -- mainly to avoid overheating them while soldering and
+for flexibility to remove them for other uses later.
 
 Component list:
 
@@ -124,13 +128,28 @@ Component list:
 * C3: 100nF ceramic through-hole capacitor
 * C4, C5, C6: 10nF ceramic through-hole capacitor
 * C7: 100nF ceramic through-hole capacitor
-* U1: An official Arduino Micro or an Arduino Pro Micro, depending on the PCB model
+* U1: An official Arduino Micro or an Arduino Pro Micro, depending on the PCB model.
+  * See below for links to stores selling Arduino products.
 * U2: TDA7050 audio amplifier with DIP8 packaging
 
-Enclosure:
+### Obtaining components
+
+Most of the regular through-hole components should be available in basically any electronics store. The TDA7050
+amplifier is also available widely.
+
+See the links below for a listing of stores selling Arduino products, an enclosure and TDA7050s.
+
+While the Arduino Pro Micro and Arduino Micro have slightly different pinouts, they are completely interchangeable
+in the context of this USB adapter. Arduino Pro Micros, being Arduino clone products, tend to be a bit cheaper.
+
+#### Enclosure
 
 * https://shopware.donau-elektronik.de/artikel/gehaeuse/gehaeuseserie-kgb/3299/kgb11-euro-box-klein-95x135x45-schwarz
-* https://www.partco.fi/en/mechanics/housing/plastic-enclosures/198-kot-45x95x135-mus.html
+* https://www.partco.fi/en/mechanics/housing/plastic-enclosures/198-kot-45x95x135-mus.html (Finland)
+
+#### Arduino Micro (World-wide)
+
+* https://store.arduino.cc/products/arduino-micro
 
 #### Arduino Pro Micro 5V/16MHz: (World-wide)
 
@@ -138,18 +157,23 @@ Enclosure:
 
 #### Arduino Pro Micro 5V/16MHz: (Finland)
 
-* https://ihmevekotin.fi/arduino-alustat/674-arduino-pro-micro-atmega32u4-5v16mhz.html - 13,90€
-* https://www.elektroniikkaosat.com/c-45/p-425511661/Kehitysalusta-Pro-Micro.html - 16,95€
-* http://robomaa.fi/arduino/arduino-pro-sarja/pro-micro-5v-16mhz - 23,90€
+* https://ihmevekotin.fi/arduino-alustat/674-arduino-pro-micro-atmega32u4-5v16mhz.html
+* https://www.elektroniikkaosat.com/c-45/p-425511661/Kehitysalusta-Pro-Micro.html
+* http://robomaa.fi/arduino/arduino-pro-sarja/pro-micro-5v-16mhz
 
 #### Arduino Micro: (Finland)
 
-* https://www.verkkokauppa.com/fi/product/54618/fgjfx/Arduino-Micro-kehitysalusta - 24,90€
-* https://www.triopak.fi/fi/tuote/ARDUINO-A000053 - 24,00€
-* https://www.kouluelektroniikka.fi/tuote/ohjelmoitava-elektroniikka-ja-tarvikkeet/arduino/arduino-alustat/4600053/arduino-micro-kehitysalusta - 24,90€
-* http://robomaa.fi/index.php?route=product/product&product_id=1648&search=arduino+micro - 25,00€ (out of stock)
-* http://www.starelec.fi/product_info.php?products_id=32593 - 29,65€
-* https://www.partco.fi/en/arduino/arduino-models/137-arduino-micro.html - 33,90€
+* https://www.verkkokauppa.com/fi/product/54618/fgjfx/Arduino-Micro-kehitysalusta
+* https://www.triopak.fi/fi/tuote/ARDUINO-A000053
+* https://www.kouluelektroniikka.fi/tuote/ohjelmoitava-elektroniikka-ja-tarvikkeet/arduino/arduino-alustat/4600053/arduino-micro-kehitysalusta
+* http://robomaa.fi/index.php?route=product/product&product_id=1648
+* http://www.starelec.fi/product_info.php?products_id=32593
+* https://www.partco.fi/en/arduino/arduino-models/137-arduino-micro.html
+
+#### TDA7050 audio amplifier: (Finland)
+
+* https://www.partco.fi/en/electronic-components/actives/integrated-circuits/ic-tda/1331-tda7050.html
+* https://www.partco.fi/en/electronic-components/actives/ic-sockets/2095-p8.html (DIL8 socket)
 
 ## Use of external keyers
 
