@@ -91,6 +91,23 @@ in order to amplify the sidetone for speaker output.
 
 ### Printed Circuit Boards
 
+The PCB marking should be mostly self-explanatory.
+
+The markings for TRS connectors are:
+
+* `T` = tip
+* `R` = ring
+* `S` = shield
+
+Potentiometers use the following convention:
+
+* `+` = positive voltage
+* `O` = output (variable output)
+* `G` = ground
+
+**NOTE:** The pads for the volume potentiometer `R7` are missing these markings. When looking at the board
+in the orientation of the images below, the markings should be: `G`, `O`, `+`.
+
 #### For Arduino Micro
 
 ![Web Radio Control morse key USB adapter schematic (Arduino Micro)](hardware/wrc-morse-key-adapter-pcb-v2-arduino-micro.svg?raw=true)
