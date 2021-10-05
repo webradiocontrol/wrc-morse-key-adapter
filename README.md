@@ -3,7 +3,7 @@
 **NOTE:** This documentation and code is for the latest version 2 (v2) of the USB adapter.
 See the [v1 branch](../../tree/v1) if you are looking for the old version 1 documentation. 
 
-This is a USB adapter for a physical morse key and a PTT switch to be used with [Web Radio Control](https://doc.webradiocontrol.tech/)
+This is a USB adapter for a physical morse key and a PTT switch to be used with [Web Radio Control](https://webradiocontrol.tech/)
 amateur radio station remote control software. The adapter connects to a computer or a mobile device via a USB port
 and represents itself as a standard keyboard. The adapter will use Web Radio Control user interface keyboard shortcuts
 (in a web browser) to control PTT and to perform morse keying.
@@ -12,6 +12,10 @@ The morse key adapter supports straight keys and provides a automatic keyer for 
 The keying speed is adjustable via a potentiometer. The adapter generates CW sidetone and the pitch
 and the volume of the sidetone are also adjustable via potentiometers.
 
+The adapter outputs the generated CW sidetone using a speaker. Alternatively, it is possible to mix the sidetone
+audio with incoming audio from a computer/tablet/phone (running [Web Radio Control](https://webradiocontrol.tech/))
+so that it is possible to use headphones with the adapter.
+
 See [Web Radio Control documentation](https://doc.webradiocontrol.tech/) for more information about Web Radio Control
 amateur radio station remote control software.
 
@@ -19,6 +23,7 @@ amateur radio station remote control software.
 
 * Integrated CW keyer for dual-lever paddle with adjustable speed
 * CW sidetone generation (via audio amplifier) with adjustable pitch and volume
+* Option to mix the CW sidetone with incoming audio from a computer for use with headphones
 * Straight key support
 * Option to use Iambic mode with a dual-lever paddle
 * Option to invert dual-lever paddle functions
