@@ -153,6 +153,8 @@ Component list:
 * U1: An official Arduino Micro or an Arduino Pro Micro, depending on the PCB model.
   * See below for links to stores selling Arduino products.
 * U2: TDA7050 audio amplifier with DIP8 packaging
+* SPEAKER: A loudspeaker with impedance between 16 and 64 ohms.
+  * The speaker diameter should be less than ~7 cm so that it fits inside the suggested enclosure.
 
 ### Obtaining components
 
