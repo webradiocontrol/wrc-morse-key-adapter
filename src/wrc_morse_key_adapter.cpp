@@ -1,6 +1,6 @@
 /**
  * Arduino USB Morse Key adapter for Web Radio Control amateur radio remote control software
- * Copyright (C) 2020-2021 Mikael Nousiainen OH3BHX <mikael@webradiocontrol.tech>
+ * Copyright (C) 2020-2023 Mikael Nousiainen OH3BHX <mikael@webradiocontrol.tech>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,13 @@
 #include <Keyboard.h>
 
 #include "dds_sine_generator.h"
+
+// Uncomment to enable serial port debugging
+// #define DEBUG_INTERRUPTS
+// #define DEBUG_TIMING
+// #define DEBUG_SCHEDULING
+// #define DEBUG_KEY
+// #define DEBUG_CONTROLS
 
 // Pin definitions
 
@@ -163,7 +170,7 @@ void keyerSetSpeedWpm(int wpm)
     scheduleAheadTicks = millisToPwmTicks(unitDurationMillis / 10.0);
 
 #ifdef DEBUG_TIMING
-    Serial.print("unit: ");
+    Serial.print("Timing: unit: ");
     Serial.println(unitDurationMillis);
     Serial.print("dit: ");
     Serial.println(ditDurationTicks);
@@ -210,6 +217,11 @@ bool keyerIsEventActiveAt(uint32_t ticks)
 
 void keyerKey(bool on, char key)
 {
+#ifdef DEBUG_KEY
+    Serial.print("Keying: ");
+    Serial.println(key);
+#endif
+
     if (on) {
         Keyboard.press(key);
     } else {
@@ -231,22 +243,26 @@ void keyerScheduleEvent(uint32_t ticks, char action, uint32_t actionDurationTick
     lastScheduledEventAction = action;
 
 #ifdef DEBUG_SCHEDULING
-    Serial.print("schedule ticks: ");
+    Serial.print("Scheduling event: ticks: ");
     Serial.print(ticks);
     Serial.print(" start: ");
     Serial.print(lastScheduledEventStartTime);
     Serial.print(" end: ");
-    Serial.println(lastScheduledEventEndTime);
+    Serial.print(lastScheduledEventEndTime);
+    Serial.print(" dit: ");
+    Serial.print(ditDurationTicks);
+    Serial.print(" dah: ");
+    Serial.print(dahDurationTicks);
+    Serial.print(" pause: ");
+    Serial.print(pauseDurationTicks);
+    Serial.print(" ahead: ");
+    Serial.println(scheduleAheadTicks);
 #endif
 }
 
 void keyerKeyIfActive(char key, uint32_t ticks, bool *isActive)
 {
     bool eventActive = keyerIsEventActiveAt(ticks);
-#ifdef DEBUG_KEY
-    Serial.print("event active: ");
-    Serial.println(eventActive);
-#endif
 
     if (!eventActive && (isActive != NULL && *isActive)) {
         keyerKey(false, key);
@@ -264,19 +280,102 @@ void keyerHandleActionChange(char action, int actionState, uint32_t actionDurati
 
     switch (actionState) {
         case INPUT_STATE_ON_CHANGED:
+#ifdef DEBUG_SCHEDULING
+            Serial.print("Action: ON_CHANGED");
+            Serial.print(" actionState: ");
+            Serial.print(actionState);
+            Serial.print(" actionDurationTicks: ");
+            Serial.print(actionDurationTicks);
+            Serial.print(" pending: ");
+            Serial.print(*pending);
+            Serial.print(" otherPending: ");
+            Serial.print(*otherPending);
+            Serial.print(" scheduleNewEvent: ");
+            Serial.print(scheduleNewEvent);
+            Serial.print(" ticks: ");
+            Serial.print(ticks);
+            Serial.print(" start: ");
+            Serial.print(lastScheduledEventStartTime);
+            Serial.print(" end: ");
+            Serial.print(lastScheduledEventEndTime);
+            Serial.print(" dit: ");
+            Serial.print(ditDurationTicks);
+            Serial.print(" dah: ");
+            Serial.print(dahDurationTicks);
+            Serial.print(" pause: ");
+            Serial.print(pauseDurationTicks);
+            Serial.print(" ahead: ");
+            Serial.println(scheduleAheadTicks);
+#endif
             if (scheduleNewEvent) {
                 keyerScheduleEvent(ticks, action, actionDurationTicks);
             } else if (lastScheduledEventAction != action) {
                 *pending = true;
+                // A race condition could lead to both signals being pending
+                *otherPending = false;
             }
             break;
         case INPUT_STATE_ON:
+#ifdef DEBUG_SCHEDULING
+            Serial.print("Action: ON ");
+            Serial.print(" actionState: ");
+            Serial.print(actionState);
+            Serial.print(" actionDurationTicks: ");
+            Serial.print(actionDurationTicks);
+            Serial.print(" pending: ");
+            Serial.print(*pending);
+            Serial.print(" otherPending: ");
+            Serial.print(*otherPending);
+            Serial.print(" scheduleNewEvent: ");
+            Serial.print(scheduleNewEvent);
+            Serial.print(" ticks: ");
+            Serial.print(ticks);
+            Serial.print(" start: ");
+            Serial.print(lastScheduledEventStartTime);
+            Serial.print(" end: ");
+            Serial.print(lastScheduledEventEndTime);
+            Serial.print(" dit: ");
+            Serial.print(ditDurationTicks);
+            Serial.print(" dah: ");
+            Serial.print(dahDurationTicks);
+            Serial.print(" pause: ");
+            Serial.print(pauseDurationTicks);
+            Serial.print(" ahead: ");
+            Serial.println(scheduleAheadTicks);
+#endif
             if (scheduleNewEvent && !*otherPending) {
                 *pending = false;
                 keyerScheduleEvent(ticks, action, actionDurationTicks);
             }
             break;
         case INPUT_STATE_OFF_CHANGED:
+#ifdef DEBUG_SCHEDULING
+            Serial.print("Action: OFF_CHANGED ");
+            Serial.print(" actionState: ");
+            Serial.print(actionState);
+            Serial.print(" actionDurationTicks: ");
+            Serial.print(actionDurationTicks);
+            Serial.print(" pending: ");
+            Serial.print(*pending);
+            Serial.print(" otherPending: ");
+            Serial.print(*otherPending);
+            Serial.print(" scheduleNewEvent: ");
+            Serial.print(scheduleNewEvent);
+            Serial.print(" ticks: ");
+            Serial.print(ticks);
+            Serial.print(" start: ");
+            Serial.print(lastScheduledEventStartTime);
+            Serial.print(" end: ");
+            Serial.print(lastScheduledEventEndTime);
+            Serial.print(" dit: ");
+            Serial.print(ditDurationTicks);
+            Serial.print(" dah: ");
+            Serial.print(dahDurationTicks);
+            Serial.print(" pause: ");
+            Serial.print(pauseDurationTicks);
+            Serial.print(" ahead: ");
+            Serial.println(scheduleAheadTicks);
+#endif
         case INPUT_STATE_OFF:
             if (*pending && scheduleNewEvent && !*otherPending) {
                 *pending = false;
@@ -388,6 +487,9 @@ inline void handleInterruptAndReadPin(int pin, volatile int *state)
 
 void pinChangeHandleRing()
 {
+#ifdef DEBUG_INTERRUPTS
+    Serial.println("Interrupt: ring");
+#endif
     if (!isAutomaticKey) {
         return;
     }
@@ -401,6 +503,9 @@ void pinChangeHandleRing()
 
 void pinChangeHandleTip()
 {
+#ifdef DEBUG_INTERRUPTS
+    Serial.println("Interrupt: tip");
+#endif
     if (isAutomaticKey) {
         if (isAutomaticKeyInverted) {
             handleInterruptAndReadPin(PIN_KEY_TIP, &rawDahState);
@@ -414,6 +519,10 @@ void pinChangeHandleTip()
 
 void pinChangeHandlePtt()
 {
+#ifdef DEBUG_INTERRUPTS
+    Serial.println("Interrupt: PTT");
+#endif
+
     handleInterruptAndReadPin(PIN_PTT, &rawPttState);
 }
 
